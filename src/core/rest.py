@@ -317,10 +317,16 @@ class RESTSpecification:
             self._system_prompt
         )
 
+        # TODO: remove logs (or make the user de-select them). This is debug info.
+
         res: dict[str, list[str]] = {}
         err: dict[str, list[str]] = {}
 
-        for req in self._reqs:
+        for i, req in enumerate(self._reqs):
+            start = datetime.datetime.now()
+
+            print(f'Iteration nr.: {i+1}')
+            # The following does the "heavy work"
             raw_res: str = session.prompt(format_req_is_tested_prompt(self._tests, req, self._prompt), True)
 
             curr_res: str
@@ -329,6 +335,7 @@ class RESTSpecification:
             # Use the requirement ID instead of its internal index
             req_id: str = self \
                 ._reqs_index[int(req["ID"].replace(RESTSpecification._REQ_INDEX_PREFIX, ""))]
+            print(f'Req. ID: {req_id}')
 
             try:
                 # Parse the output of the LLM
@@ -339,6 +346,10 @@ class RESTSpecification:
                 err[req_id] = [traceback.format_exc(), raw_res]
 
             res[req_id] = links
+            
+            print(links); print(res)
+            now = datetime.datetime.now()
+            print(f'Took: {now - start}')
 
         session.delete()
         return Response(res, err)
