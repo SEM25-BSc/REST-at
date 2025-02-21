@@ -349,7 +349,8 @@ class RESTSpecification:
 
             res[req_id] = links
             
-            print(links); print(res)
+            print(f'Created links: {links}');
+            print(f'Parsed response {res}')
             now = datetime.datetime.now()
             print(f'Took: {now - start}')
 
