@@ -138,7 +138,7 @@ def main() -> None:
         try:
             system_prompt: str
             # Read the prompt from the default file
-            with open("./prompts/system/default.txt") as f:
+            with open("./prompts/system/list/default.txt") as f:
                 system_prompt = f.read()
 
             # Set the system prompt
@@ -167,7 +167,7 @@ def main() -> None:
         try:
             prompt: str
             # Read the prompt from the default file
-            with open("./prompts/user/default.txt") as f:
+            with open("./prompts/user/list/default.txt") as f:
                 prompt = f.read()
 
             # Set the prompt
