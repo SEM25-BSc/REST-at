@@ -329,6 +329,8 @@ class RESTSpecification:
             # The following does the "heavy work"
             raw_res: str = session.prompt(format_req_is_tested_prompt(self._tests, req, self._prompt), True)
 
+            print(f'Raw output: {raw_res}')
+
             curr_res: str
             links: list[str]
 
