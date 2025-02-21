@@ -328,6 +328,8 @@ class RESTSpecification:
             print(f'Iteration nr.: {i+1}')
             # The following does the "heavy work"
             raw_res: str = session.prompt(format_req_is_tested_prompt(self._tests, req, self._prompt), True)
+            # FIXME: this is just an extra step that we're testing.
+            raw_res = raw_res.split('<|im_start|>assistant')[-1].strip()
 
             print(f'Raw output: {raw_res}')
 
